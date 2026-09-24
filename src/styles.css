@@ -1,134 +1,225 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@fontsource-variable/montserrat";
-@import "@fontsource-variable/manrope";
+
+@import "fonts.css";
 
 @custom-variant dark (&:is(.dark *));
 
 :root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.141 0.005 285.823);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.141 0.005 285.823);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.141 0.005 285.823);
-    --primary: oklch(0.488 0.243 264.376);
-    --primary-foreground: oklch(0.97 0.014 254.604);
-    --secondary: oklch(0.967 0.001 286.375);
-    --secondary-foreground: oklch(0.21 0.006 285.885);
-    --muted: oklch(0.967 0.001 286.375);
-    --muted-foreground: oklch(0.552 0.016 285.938);
-    --accent: oklch(0.967 0.001 286.375);
-    --accent-foreground: oklch(0.21 0.006 285.885);
-    --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.92 0.004 286.32);
-    --input: oklch(0.92 0.004 286.32);
-    --ring: oklch(0.705 0.015 286.067);
-    --chart-1: oklch(0.809 0.105 251.813);
-    --chart-2: oklch(0.623 0.214 259.815);
-    --chart-3: oklch(0.546 0.245 262.881);
-    --chart-4: oklch(0.488 0.243 264.376);
-    --chart-5: oklch(0.424 0.199 265.638);
-    --radius: 0.625rem;
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.141 0.005 285.823);
-    --sidebar-primary: oklch(0.546 0.245 262.881);
-    --sidebar-primary-foreground: oklch(0.97 0.014 254.604);
-    --sidebar-accent: oklch(0.967 0.001 286.375);
-    --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
-    --sidebar-border: oklch(0.92 0.004 286.32);
-    --sidebar-ring: oklch(0.705 0.015 286.067);
+  --radius: 0.5rem; /* 8px, dal design (--radius) */
+
+  /* --- Neutrali --- */
+  --background: hsl(0 0% 98%); /* --bg */
+  --foreground: hsl(240 6% 10%); /* --ink */
+  --card: hsl(0 0% 100%); /* --surface */
+  --card-foreground: hsl(240 6% 10%);
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(240 6% 10%);
+  --secondary: hsl(240 5% 96%); /* --border-soft */
+  --secondary-foreground: hsl(240 6% 10%);
+  --muted: hsl(240 5% 96%); /* --border-soft */
+  --muted-foreground: hsl(240 5% 34%); /* --ink-soft */
+  --border: hsl(240 6% 90%); /* --border */
+  --input: hsl(240 6% 90%);
+
+  /* --- Brand / stato principale --- */
+  --primary: hsl(184 100% 29%); /* --accent (teal di brand) */
+  --primary-foreground: hsl(0 0% 100%);
+  --accent: hsl(
+    184 44% 92%
+  ); /* --accent-soft: "accent" shadcn = hover/highlight tenue */
+  --accent-foreground: hsl(183 100% 21%); /* --accent-dark */
+  --destructive: hsl(0 62% 47%); /* --danger */
+  --destructive-foreground: hsl(0 0% 100%);
+  --ring: hsl(184 100% 29%); /* --accent */
+
+  /* --- Sidebar (component <Sidebar> di shadcn) --- */
+  --sidebar: hsl(0 0% 100%); /* --sidebar */
+  --sidebar-foreground: hsl(240 5% 34%); /* --sidebar-text */
+  --sidebar-primary: hsl(184 100% 29%); /* voce attiva: bg = --accent-soft */
+  --sidebar-primary-foreground:hsl(183.53, 43.59%, 92.35%); /* voce attiva: testo = --accent-dark */
+  --sidebar-accent: hsl(183.53, 43.59%, 92.35%); /* hover: bg = --sidebar-soft */
+  --sidebar-accent-foreground: hsl(184 100% 29%); /* hover: testo = --ink */
+  --sidebar-border: hsl(240 6% 90%);
+  --sidebar-ring: hsl(184 100% 29%);
+
+  /* --- Estensioni custom del design (badge, pillole di stato, notifiche) ---
+     Non fanno parte della palette base di shadcn: aggiunte come token propri. */
+  --success: hsl(147 66% 29%);
+  --success-foreground: hsl(0 0% 100%);
+  --success-soft: hsl(147 50% 93%);
+
+  --warning: hsl(32 89% 37%);
+  --warning-foreground: hsl(0 0% 100%);
+  --warning-soft: hsl(37 100% 93%);
+
+  --info: hsl(216 74% 43%);
+  --info-foreground: hsl(0 0% 100%);
+  --info-soft: hsl(211 93% 94%);
+
+  --purple: hsl(261 52% 50%);
+  --purple-foreground: hsl(0 0% 100%);
+  --purple-soft: hsl(267 69% 95%);
+
+  --pink: hsl(329 58% 44%);
+  --pink-foreground: hsl(0 0% 100%);
+  --pink-soft: hsl(329 79% 94%);
+
+  --amber: hsl(46 87% 31%);
+  --amber-foreground: hsl(0 0% 100%);
+  --amber-soft: hsl(48 96% 89%);
 }
 
+/*
+ * Dark mode: il canvas del design definisce solo il tema chiaro. Questi valori
+ * sono una proposta derivata (stessa tinta/saturazione, luminosità adattata
+ * alla leggibilità su sfondo scuro) — da rivedere prima di considerarla
+ * definitiva, in particolare per i colori di stato su sfondo scuro.
+ */
 .dark {
-    --background: oklch(0.141 0.005 285.823);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.21 0.006 285.885);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.21 0.006 285.885);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.424 0.199 265.638);
-    --primary-foreground: oklch(0.97 0.014 254.604);
-    --secondary: oklch(0.274 0.006 286.033);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.274 0.006 286.033);
-    --muted-foreground: oklch(0.705 0.015 286.067);
-    --accent: oklch(0.274 0.006 286.033);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.552 0.016 285.938);
-    --chart-1: oklch(0.809 0.105 251.813);
-    --chart-2: oklch(0.623 0.214 259.815);
-    --chart-3: oklch(0.546 0.245 262.881);
-    --chart-4: oklch(0.488 0.243 264.376);
-    --chart-5: oklch(0.424 0.199 265.638);
-    --sidebar: oklch(0.21 0.006 285.885);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.623 0.214 259.815);
-    --sidebar-primary-foreground: oklch(0.97 0.014 254.604);
-    --sidebar-accent: oklch(0.274 0.006 286.033);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.552 0.016 285.938);
+  --background: hsl(240 6% 8%);
+  --foreground: hsl(0 0% 96%);
+  --card: hsl(240 6% 11%);
+  --card-foreground: hsl(0 0% 96%);
+  --popover: hsl(240 6% 11%);
+  --popover-foreground: hsl(0 0% 96%);
+  --secondary: hsl(240 5% 16%);
+  --secondary-foreground: hsl(0 0% 96%);
+  --muted: hsl(240 5% 16%);
+  --muted-foreground: hsl(240 4% 65%);
+  --border: hsl(240 5% 20%);
+  --input: hsl(240 5% 20%);
+
+  --primary: hsl(184 70% 48%);
+  --primary-foreground: hsl(0 0% 100%);
+  --accent: hsl(184 35% 18%);
+  --accent-foreground: hsl(184 70% 75%);
+  --destructive: hsl(0 70% 58%);
+  --destructive-foreground: hsl(0 0% 100%);
+  --ring: hsl(184 70% 48%);
+
+  --sidebar: hsl(240 6% 11%);
+  --sidebar-foreground: hsl(240 4% 75%);
+  --sidebar-primary: hsl(184 35% 18%);
+  --sidebar-primary-foreground: hsl(184 70% 75%);
+  --sidebar-accent: hsl(240 5% 18%);
+  --sidebar-accent-foreground: hsl(0 0% 96%);
+  --sidebar-border: hsl(240 5% 20%);
+  --sidebar-ring: hsl(184 70% 48%);
+
+  --success: hsl(147 55% 45%);
+  --success-foreground: hsl(0 0% 100%);
+  --success-soft: hsl(147 35% 16%);
+  --warning: hsl(32 80% 52%);
+  --warning-foreground: hsl(0 0% 100%);
+  --warning-soft: hsl(32 40% 16%);
+  --info: hsl(216 70% 58%);
+  --info-foreground: hsl(0 0% 100%);
+  --info-soft: hsl(216 40% 16%);
+  --purple: hsl(261 55% 65%);
+  --purple-foreground: hsl(0 0% 100%);
+  --purple-soft: hsl(261 35% 18%);
+  --pink: hsl(329 60% 62%);
+  --pink-foreground: hsl(0 0% 100%);
+  --pink-soft: hsl(329 35% 18%);
+  --amber: hsl(46 70% 50%);
+  --amber-foreground: hsl(0 0% 8%);
+  --amber-soft: hsl(46 40% 16%);
 }
 
+/*
+ * Registrazione dei token come utility Tailwind (bg-primary, text-foreground,
+ * rounded-lg, font-display, ecc.). Questo blocco sostituisce interamente
+ * theme.extend di tailwind.config.ts: è la parte "config CSS" di Tailwind v4.
+ */
 @theme inline {
-    --font-sans: 'Montserrat Variable', sans-serif;
-    --font-heading: 'Manrope Variable', sans-serif;
-    --color-sidebar-ring: var(--sidebar-ring);
-    --color-sidebar-border: var(--sidebar-border);
-    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-    --color-sidebar-accent: var(--sidebar-accent);
-    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-    --color-sidebar-primary: var(--sidebar-primary);
-    --color-sidebar-foreground: var(--sidebar-foreground);
-    --color-sidebar: var(--sidebar);
-    --color-chart-5: var(--chart-5);
-    --color-chart-4: var(--chart-4);
-    --color-chart-3: var(--chart-3);
-    --color-chart-2: var(--chart-2);
-    --color-chart-1: var(--chart-1);
-    --color-ring: var(--ring);
-    --color-input: var(--input);
-    --color-border: var(--border);
-    --color-destructive: var(--destructive);
-    --color-accent-foreground: var(--accent-foreground);
-    --color-accent: var(--accent);
-    --color-muted-foreground: var(--muted-foreground);
-    --color-muted: var(--muted);
-    --color-secondary-foreground: var(--secondary-foreground);
-    --color-secondary: var(--secondary);
-    --color-primary-foreground: var(--primary-foreground);
-    --color-primary: var(--primary);
-    --color-popover-foreground: var(--popover-foreground);
-    --color-popover: var(--popover);
-    --color-card-foreground: var(--card-foreground);
-    --color-card: var(--card);
-    --color-foreground: var(--foreground);
-    --color-background: var(--background);
-    --radius-sm: calc(var(--radius) * 0.6);
-    --radius-md: calc(var(--radius) * 0.8);
-    --radius-lg: var(--radius);
-    --radius-xl: calc(var(--radius) * 1.4);
-    --radius-2xl: calc(var(--radius) * 1.8);
-    --radius-3xl: calc(var(--radius) * 2.2);
-    --radius-4xl: calc(var(--radius) * 2.6);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* estensioni custom: bg-success, text-success-foreground, bg-success-soft, ecc. */
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-warning-soft: var(--warning-soft);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-info-soft: var(--info-soft);
+  --color-purple: var(--purple);
+  --color-purple-foreground: var(--purple-foreground);
+  --color-purple-soft: var(--purple-soft);
+  --color-pink: var(--pink);
+  --color-pink-foreground: var(--pink-foreground);
+  --color-pink-soft: var(--pink-soft);
+  --color-amber: var(--amber);
+  --color-amber-foreground: var(--amber-foreground);
+  --color-amber-soft: var(--amber-soft);
+
+  /* radius: rounded-sm/md/lg/xl derivati da --radius */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* font: font-sans (default, corpo) e font-display (titoli, ex .title-font) */
+  --font-sans:
+    "Montserrat", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Barlow Condensed", ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
-    }
+  }
   body {
     @apply bg-background text-foreground;
-    }
-  button:not(:disabled), [role="button"]:not(:disabled) {
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
     cursor: pointer;
-    }
+  }
   html {
     @apply font-sans;
-    }
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Barlow Condensed", sans-serif;
+}
+
+* {
+  font-family: var(--font-sans);
 }

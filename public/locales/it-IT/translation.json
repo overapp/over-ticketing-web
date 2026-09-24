@@ -1,0 +1,84 @@
+{
+  "pages": {
+    "profile": {
+      "edit": {
+        "title": "Modifica Profilo",
+        "description": "Modifica le informazioni del tuo profilo."
+      },
+      "index": {
+        "title": "Profilo",
+        "description": "Gestisci le informazioni del tuo profilo."
+      }
+    },
+    "dashboard": {
+      "title": "Cruscotto",
+      "description": "Visualizza e gestisci le informazioni principali del tuo account."
+    },
+    "settings": {
+      "title": "Impostazioni",
+      "description": "Gestisci le impostazioni del tuo account."
+    },
+    "auth": {
+      "login": {
+        "title": "Bentornato",
+        "description": "Accedi al tuo account.",
+        "form": {
+          "email": {
+            "label": "Email",
+            "placeholder": "Inserisci la tua email",
+            "errors": {
+              "invalid": "Indirizzo email non valido",
+              "required": "L'email è obbligatoria"
+            }
+          },
+          "password": {
+            "label": "Password",
+            "placeholder": "Inserisci la tua password",
+            "errors": {
+              "required": "La password è obbligatoria",
+              "minLength": "La password deve contenere almeno 6 caratteri"
+            }
+          },
+          "submit": {
+            "label": "Accedi"
+          },
+          "forgot-password": {
+            "label": "Password dimenticata?"
+          },
+          "footer": "Non hai un account? Contatta l'amministratore del tuo progetto."
+        }
+      }
+    }
+  },
+  "shell": {
+    "content": {
+      "admin": {
+        "dashboard": "Dashboard",
+        "active-project": "Progetto Attivo",
+        "tickets": {
+          "title": "Tickets",
+          "assigned-to-me": "Assegnati a me",
+          "to-assign": "Da assegnare",
+          "urgent": "Urgenti",
+          "recently-closed": "Risolti di recente"
+        },
+        "admin": {
+          "title": "Amministrazione",
+          "organizations": "Organizazzioni",
+          "projects": "Progetti",
+          "users": "Utenti"
+        },
+        "projects": {
+          "picker": {
+            "title": "Progetto"
+          }
+        }
+      }
+    },
+    "footer": {
+      "profile": "Profilo",
+      "settings": "Impostazioni",
+      "logout": "Esci"
+    }
+  }
+}
