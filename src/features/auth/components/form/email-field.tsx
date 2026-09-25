@@ -9,7 +9,7 @@ interface EmailFieldProps {
 }
 
 export function EmailField({ placeholder }: EmailFieldProps) {
-  const { form } = useLoginFormContext()
+  const { form, disabled } = useLoginFormContext()
   const { t } = useTranslation()
 
   return (
@@ -30,6 +30,7 @@ export function EmailField({ placeholder }: EmailFieldProps) {
                 placeholder ?? t("pages.auth.login.form.email.placeholder")
               }
               aria-invalid={fieldState.invalid}
+              disabled={disabled}
             />
             {fieldState.error?.message && (
               <FieldError>{fieldState.error.message}</FieldError>
