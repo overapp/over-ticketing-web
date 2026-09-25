@@ -1,8 +1,6 @@
 import { createRouter as createTanStackRouter } from "@tanstack/react-router"
 import { routeTree } from "./routeTree.gen"
 
-import "@fontsource-variable/montserrat"
-
 import "./lib/i18n"
 
 export function getRouter() {
