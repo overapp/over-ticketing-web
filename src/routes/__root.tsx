@@ -1,10 +1,13 @@
 import { HeadContent, Scripts, createRootRoute } from "@tanstack/react-router"
 // import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
 // import { TanStackDevtools } from "@tanstack/react-devtools"
+import { queryOptions, QueryClientProvider } from "@tanstack/react-query"
 
 import appCss from "../styles.css?url"
-
+import { client as apiClient } from '@/lib/api';
+import { queryClient } from "@/lib/query-client"
 import { TooltipProvider } from "@/components/ui/tooltip"
+import type { User } from "@/features/auth/types";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -27,6 +30,23 @@ export const Route = createRootRoute({
       },
     ],
   }),
+  beforeLoad: async () => {
+    const user = await queryClient.query(
+      queryOptions({
+        queryKey: ["auth-me"],
+        queryFn: async () => {
+          const { data } = await apiClient.get<User>("/auth/me")
+          return data
+        },
+        staleTime: 5 * 60 * 1000,
+        retry: false,
+      })
+    ).catch(() => null)
+
+    return {
+      user,
+    }
+  },
   notFoundComponent: () => (
     <main className="container mx-auto p-4 pt-16">
       <h1>404</h1>
@@ -43,7 +63,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <TooltipProvider>{children}</TooltipProvider>
+        <QueryClientProvider client={queryClient}>
+          <TooltipProvider>{children}</TooltipProvider>
+        </QueryClientProvider>
         {/* <TanStackDevtools
           config={{
             position: "bottom-right",

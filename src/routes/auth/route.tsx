@@ -1,8 +1,12 @@
-import { createFileRoute, Outlet } from "@tanstack/react-router"
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router"
 import { AppLogo } from "@/components/logo"
+import { anonymousGuard } from "@/lib/router/guard";
 
 export const Route = createFileRoute("/auth")({
   component: AuthLayout,
+  loader: ({ context }) => {
+    anonymousGuard(context);
+  },
 })
 
 function AuthLayout() {

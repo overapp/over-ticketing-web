@@ -4,10 +4,14 @@ import {
   AppSidebarFooter,
 } from "@/components/sidebar"
 import { Sidebar, SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
+import { authenticatedGuard } from "@/lib/router/guard";
 import { createFileRoute, Outlet } from "@tanstack/react-router"
 
 export const Route = createFileRoute("/_app")({
   component: RouteComponent,
+  loader: ({ context }) => {
+    authenticatedGuard(context);
+  },
 })
 
 function RouteComponent() {

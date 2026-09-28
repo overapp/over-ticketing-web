@@ -3,6 +3,7 @@ import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import * as LoginForm from "@/features/auth/components/form"
 import { Separator } from "@/components/ui/separator"
+import { login } from "@/features/auth/apis"
 
 export const Route = createFileRoute("/auth/login")({
   component: RouteComponent,
@@ -18,10 +19,7 @@ function RouteComponent() {
     setError(null)
 
     try {
-      setTimeout(() => {
-        setIsLoading(false)
-        alert("Login successful")
-      }, 3000)
+      await login(data.email, data.password);
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred")
     } finally {
