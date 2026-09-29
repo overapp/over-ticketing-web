@@ -1,4 +1,5 @@
 import { HeadContent, Scripts, createRootRoute } from "@tanstack/react-router"
+import { AuthProvider } from "@/features/auth/context/auth-context"
 // import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
 // import { TanStackDevtools } from "@tanstack/react-devtools"
 import { queryOptions, QueryClientProvider } from "@tanstack/react-query"
@@ -64,7 +65,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <QueryClientProvider client={queryClient}>
-          <TooltipProvider>{children}</TooltipProvider>
+          <AuthProvider>
+            <TooltipProvider>{children}</TooltipProvider>
+          </AuthProvider>
         </QueryClientProvider>
         {/* <TanStackDevtools
           config={{
